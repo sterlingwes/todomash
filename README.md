@@ -1,6 +1,6 @@
 # mashtodo
 
-Live version at [mashtodo.mobywan.com](mashtodo.mobywan.com). Best viewed in Chrome. Lightly tested in Firefox and IE 10).
+Live version at [mashtodo.mobywan.com](http://mashtodo.mobywan.com). Best viewed in Chrome. Lightly tested in Firefox and IE 10).
 
 ## Approach
 
@@ -14,15 +14,17 @@ The main downside is the stylesheets are loaded later than usual, which explains
 
 ## API Variance from Guidelines
 
-Since all the todo items are required upfront, there's only a bulk GET method. If a GET request was necessary for a specific item, I'd throw that under the /items/:id resource endpoint.
+### GETs
+
+Since all the todo items are required upfront, there's only a bulk GET method. If a GET request was necessary for a specific item, I'd throw that under the `/items/:id` resource endpoint.
+
+### Search
 
 Search - I didn't see a need for a search endpoint since all the todos were loaded in the client and could be searched easily there.
 
-I added a `time` field to the stored items on the server for use in sorting in the client as well as referencing when I need to reconcile the client item with an _id for a newly created item on the server.
-
 ## Twilio
 
-The Twilio API comes into play when a string following the form of `notify:+1-111-1111` is found in the body of a todo. When an item is marked "done", the body is checked for the notify tag and an SMS is sent with the title of the note. **Warning** a message will be sent again if the `done` status is toggled from `true` to `false` and back again.
+The Twilio API comes into play when a string roughly following the form of `notify:+1-111-111-1111` is found in the body of a todo. When an item is marked "done", the body is checked for the notify tag and an SMS is sent with the title of the note.
 
 ## Wishlist
 
@@ -35,7 +37,7 @@ If this were a production app I'd do...
 *   TESTING (I like jasmine)
 
 PS.. Please don't sue me for using the mash**ape**!!
-
+```
 ---
 
 CLOC Source Line Count
@@ -43,3 +45,4 @@ CLOC Source Line Count
 Language                     files          blank        comment           code
 -------------------------------------------------------------------------------
 Javascript                      12            184             92            649
+```
