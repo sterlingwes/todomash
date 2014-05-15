@@ -1,6 +1,6 @@
 # mashtodo
 
-Live version at [mashtodo.mobywan.com](http://mashtodo.mobywan.com). Best viewed in Chrome. Lightly tested in Firefox and IE 10).
+Live version at [todomash.mobywan.com](http://todomash.mobywan.com). Best viewed in Chrome. Lightly tested in Firefox and IE 10).
 
 ## Approach
 
