@@ -1,0 +1,29 @@
+{
+  "name": "mashtest",
+  "author": "Wes Johnson",
+  "description": "TODO App Test w/ API and Twilio integration via Mashape",
+  "scripts": {
+    "start": "node ./server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sterlingwes/mashtest.git"
+  },
+  "dependencies" : {
+    "express": "4.x",
+    "jade": "",
+    "ajax": "sterlingwes/ajax",
+	"flux": "sterlingwes/flux",
+	"react": "",
+	"mongodb": "",
+	"es6-promise": "",
+	"webpack": "",
+	"enhanced-require": "",
+	"underscore": "",
+	"unirest": ""
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.10.25"
+  }
+}
