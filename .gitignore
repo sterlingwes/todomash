@@ -1,5 +1,6 @@
 .zedstate
 tags
-public/
+public/bundle.js
+public/index.html
 twilio.json
 client/css/base.css
