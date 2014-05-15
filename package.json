@@ -20,7 +20,8 @@
 	"webpack": "",
 	"enhanced-require": "",
 	"underscore": "",
-	"unirest": ""
+	"unirest": "",
+    "body-parser": ""
   },
   "license": "MIT",
   "engines": {
