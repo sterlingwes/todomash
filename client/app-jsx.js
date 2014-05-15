@@ -2,10 +2,6 @@
  * Main entry point for our client
  */
 
-// load styles for our app (includes icon font includes)
-
-require('./css/base.styl');
-
 // load fonts via Google Fonts
 
 WebFontConfig = {
