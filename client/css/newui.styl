@@ -1,0 +1,452 @@
+$bg = #F0F3F5
+$font = #1A2229
+$fontbody = #66696C
+$offwhite = #F8FAFB
+$ltblue = #0AC2F0
+$ltblue2 = #08B8EE
+$ltgreen = #47EC6E
+$gunmetal = #3F4E5A
+$offblack = #2C3947
+$shadow = #E7E9EB
+$checkbase = #BFCDD8
+$fadedtxt = #A4B4C0
+$inputoutline = #02C6E0
+
+$navwidth = 160px
+$notemargin = 115px
+$headerbar = 60px
+$checksize = 60px
+$noteheight = 100px
+
+html, body
+  background-color $bg
+  color $font
+  padding 0
+  margin 0
+  font-family 'Montserrat', sans-serif
+  font-weight 400
+  -webkit-font-smoothing antialiased
+  -moz-osx-font-smoothing grayscale
+  
+linearGradient(from=#FFF,to=$offwhite)
+  background from
+  background -moz-linear-gradient(top, from  0%, to 100%)
+  background -webkit-gradient(linear, left top, left bottom, color-stop(0%,from), color-stop(100%,to))
+  background -webkit-linear-gradient(top, from 0%, to 100%)
+  background -o-linear-gradient(top, from 0%, to 100%)
+  background -ms-linear-gradient(top, from 0%, to 100%)
+  background linear-gradient(to bottom, from 0%, to 100%)
+  
+placeHolder(color=#B4BEC8)
+  font-family 'Montserrat', sans-serif
+  font-size 0.95em
+  &::-webkit-input-placeholder { /* WebKit browsers */
+    color:    color;
+  }
+  &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    color;
+    opacity:  1;
+  }
+  &::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    color;
+    opacity:  1;
+  }
+  &:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    color;
+  }
+  
+borderRadius()
+  border-radius arguments
+  -webkit-border-radius arguments
+  -moz-border-radius arguments
+  -o-border-radius arguments
+  
+boxShadow()
+  -moz-box-shadow arguments
+  box-shadow arguments
+  -webkit-box-shadow arguments
+  
+listReset()
+  list-style none
+  padding 0
+  margin 0
+  li
+    list-style none
+    padding 0
+    border 0
+  
+header
+  position relative
+  margin-left $navwidth
+  linearGradient()
+  boxShadow(0 2px 3px $shadow)
+  min-height $headerbar
+  
+  i
+    position absolute
+    top 18px
+    left 20px
+    font-size 1.5em
+    color $gunmetal
+    
+  input
+    border 0
+    width 100%
+    text-indent 60px
+    font-size 1.05em
+    padding 20px 0 10px 0
+    background-color transparent
+    outline none
+    placeHolder()
+  
+.hide
+  display none
+  
+#body
+  position absolute
+  overflow auto
+  top $headerbar
+  left $navwidth
+  right 0
+  bottom 0
+  
+#logo
+  background-color $ltblue
+  min-height $headerbar
+  
+nav
+  width $navwidth
+  background-color #192229
+  position absolute
+  top 0
+  left 0
+  bottom 0
+  
+  i
+    position relative
+    top 3px
+    color $ltblue
+    margin 0 10px 0 15px
+    font-size 1.25em
+    
+    &.green
+      color $ltgreen
+  
+  ul
+    listReset()
+    color #fff
+    margin 20px 0
+    
+    li
+      position relative
+      padding 18px 0
+      cursor pointer
+      
+      &.divider
+        background-color $offblack
+        height 1px
+        padding 0
+        margin 10px 0
+        
+      &:hover
+        background-color $offblack
+        color $ltblue
+        
+      &.active
+        color $ltblue
+        
+.checkbox
+    width $checksize
+    z-index 10
+    min-height 60px
+
+    input[type=checkbox]
+      cursor pointer
+      visibility hidden
+
+    label
+      cursor pointer
+      position absolute
+      z-index 12
+      width $checksize
+      height $checksize
+      top 0
+      left 0
+      borderRadius($checksize / 2)
+      background-color $checkbase
+      boxShadow(inset 0 3px 3px darken($checkbase,15%))
+
+      &:after
+        opacity 0
+        z-index 13
+        position absolute
+        width 18px
+        height 10px
+        background transparent
+        top 14px
+        left 13px
+        font-family: 'icomoon'
+        speak: none
+        font-style: normal
+        font-weight: normal
+        font-variant: normal
+        text-transform: none
+        line-height: 1
+        -webkit-font-smoothing: antialiased
+        -moz-osx-font-smoothing: grayscale
+        content: "\e602"
+        color: #fff
+        font-size 2.1em
+
+      &:hover:after
+        opacity 0.5
+          
+    input[type=checkbox]:checked + label
+      background-color $ltgreen
+      boxShadow(inset 0 3px 3px darken($ltgreen,28%))
+      text-shadow 0 2px 0 darken($ltgreen,28%)
+      
+      &:after
+        opacity 1
+        
+ul.noteList
+  listReset()
+  position relative
+  
+  &:after
+    position absolute
+    content ""
+    background-image url(../img/timeline.png)
+    background-repeat repeat-y
+    top 50px
+    width 115px
+    left 0
+    bottom 0
+      
+  > li.done
+    position relative
+    min-height 75px
+    
+    .doneMsg
+      margin-left $notemargin
+      color $fadedtxt
+      font-size 1.2em
+      padding-top 47px
+    
+    .doneCheck
+      position absolute
+      left 28px
+      top 28px
+      z-index 1
+      width $checksize
+      height $checksize
+      borderRadius($checksize / 2)
+      background-color #fff
+      
+      i
+        position absolute
+        top 15px
+        left 13px
+        color $checkbase
+        font-size 2.1em
+        
+.noteItem, .modal
+  position relative
+  background-color #fff
+  boxShadow(-1.5px 1.5px 0px $shadow)
+  padding 8px
+  margin 20px
+  min-height $noteheight
+  margin-left $notemargin
+  borderRadius 3px
+
+  > i
+    position absolute
+    top 7px
+    right 8px
+    width 40px
+    line-height 2em
+    text-align center
+    color #BFC7D0
+    cursor pointer
+
+    &:hover
+      color darken(#BFC7D0,25%)
+
+  .todoBody
+    padding 6px
+
+  .noteTitle, .noteBody
+    background-color transparent
+    outline none
+    border 0px
+    font-family 'Montserrat', sans-serif
+    width 98%
+    display block
+    border 1px solid transparent
+
+  .noteTitle
+    font-size 1.2em
+    color $font
+    margin 8px 0 4px 0
+
+  .noteBody
+    color $fontbody
+    resize none
+
+  input.noteTitle, textarea.noteBody
+    border 1px solid $inputoutline
+    border-radius 2px
+    font-size 1em
+    padding 5px 1%
+
+  textarea.noteBody
+    min-height 60px
+
+  .time
+    position relative
+    display block
+
+    font-size 0.8em
+    color $checkbase
+
+  .checkbox
+    position absolute
+    left -87px
+    top 28px
+        
+.noteOptions
+  text-align right
+
+.btn
+  border-radius 2px
+  text-transform uppercase
+  display inline-block
+  margin-top 4px
+  margin-left 10px
+  padding 7px
+  min-width 110px
+  text-align center
+  font-weight 400
+  font-size 1.05em
+  border 1px solid transparent
+  cursor pointer
+  
+  &.blue
+    linearGradient($ltblue,$ltblue2)
+    color #fff
+    text-shadow 1px 1px 3px darken($ltblue2,10%)
+    
+    &:hover
+      border 1px solid darken($ltblue2,30%)
+      linearGradient(darken($ltblue,10%),darken($ltblue2,10%))
+    
+  &.grey
+    linearGradient(#F4F6F8,#ECF0F2)
+    border 1px solid #BFCDD8
+    color $font
+    
+    &:hover
+      border 1px solid darken(#BFCDD8,30%)
+    
+  &.red
+    linearGradient(#F0364C,#C42C3E)
+    color #fff
+    
+    &:hover
+      border 1px solid darken(#C42C3E,30%)
+    
+.modal
+  position absolute
+  left $navwidth + 25px
+  top 8px
+  display none
+  width: 550px;
+  background-color: #fff;
+  z-index: 100;
+  box-shadow: 0px 0px 10px 5px #DDD;
+  margin 0
+
+  &:after
+    right: 100%;
+    top: 25px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-right-color: #FFF;
+    border-width: 12px;
+    margin-top: -12px;
+
+  &.modalOpen
+    display block
+    
+  .btn.red
+    display none
+
+/* icon font styling */
+
+@font-face {
+  font-family: 'icomoon';
+  src:url('/fonts/icomoon.eot?-ro8snv');
+  src:url('/fonts/icomoon.eot?#iefix-ro8snv') format('embedded-opentype'),
+  url('/fonts/icomoon.woff?-ro8snv') format('woff'),
+  url('/fonts/icomoon.ttf?-ro8snv') format('truetype'),
+  url('/fonts/icomoon.svg?-ro8snv#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'icomoon';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+}
+
+.icon-drawer:before {
+  content: "\e600";
+}
+.icon-search:before {
+  content: "\e601";
+}
+.icon-cog:before {
+  content: "\e604";
+}
+.icon-calendar:before {
+  content: "\e605";
+}
+.icon-calendar-week {
+  position relative
+}
+.icon-calendar-week:before {
+  content: "\e605";
+}
+.icon-calendar-week:after {
+  position: absolute;
+  font-family: 'Arial', sans-serif;
+  left: 5px;
+  top: 3px;
+  content: "\2013";
+  font-size: 0.9em
+}
+.icon-checkmark:before {
+  content: "\e602";
+}
+.icon-cross:before {
+  content: "\e606";
+}
+.icon-plus:before {
+  content: "\e607";
+}
+.icon-warning:before {
+  content: "\e608";
+}
+.icon-trash:before {
+  content: "\e603";
+}

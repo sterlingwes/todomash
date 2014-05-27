@@ -2,10 +2,12 @@
  * Main entry point for our client
  */
 
+require('./css/newui.styl');
+
 // load fonts via Google Fonts
 
 WebFontConfig = {
-    google: { families: [ 'Gloria+Hallelujah::latin', 'Raleway:600,500:latin' ] }
+    google: { families: [ 'Montserrat:400,700:latin' ] }
 };
 (function() {
     var wf = document.createElement('script');
