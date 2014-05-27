@@ -5,7 +5,6 @@
 */
 
 var React = require('react')
-  , TodoInput = require('./todoinput-jsx')
   , Actions = require('flux').call
   , cx = require('react/lib/cx')
   , moment = require('moment/min/moment.min')
@@ -28,15 +27,17 @@ var TodoItem = React.createClass({
       , body
       , inputs = [
           <input key="1" type="text"
+            id={todo._id ? 'editTitle_'+todo._id : 'addNewTitle'}
             className="note noteTitle"
             placeholder="Enter a note title (required)"
             value={this.state.title || todo.title}
-            onChange={this._onChange} />,
+            onChange={this._onChange}
+            autoFocus={true} />,
         
           <textarea key="2"
             className="note noteBody"
             placeholder="Enter more detail here..."
-            value={this.state.body || todo.body}
+            value={this.state.body!==null ? this.state.body : this.state.body || todo.body}
             onChange={this._onChange} />,
         
           <div key="3" className={cx({
@@ -102,9 +103,7 @@ var TodoItem = React.createClass({
       , val = event.target.value.trim()
       , stateChg = {};
 
-    if(val)
-      stateChg[ target=='TEXTAREA' ? 'body' : 'title' ] = event.target.value;
-
+    stateChg[ target=='TEXTAREA' ? 'body' : 'title' ] = event.target.value;
     this.setState(stateChg);
   },
 
@@ -116,12 +115,19 @@ var TodoItem = React.createClass({
 
   // save any changes via the save button exposed when state is set
 
-  _onSave: function(title) {
+  _onSave: function() {
+    
+    if(this.props.saveNew)
+      return this.props.saveNew({
+        title:  this.state.title,
+        body:   this.state.body
+      });
+    
     var changes = {
       _id:     this.props.todo._id
     };
-    if(this.state.title)    changes.title = this.state.title;
-    if(this.state.body)     changes.body = this.state.body;
+    if(typeof this.state.title==='string')    changes.title = this.state.title;
+    if(typeof this.state.body==='string')     changes.body = this.state.body;
     Actions('update', changes);
     this._onReset();
   },
@@ -134,6 +140,9 @@ var TodoItem = React.createClass({
     this.setState({
       title: null, body: null, isEditing: false
     });
+    
+    if(this.props.saveNew)
+      this.props.saveNew();
   }
 
 });

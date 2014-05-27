@@ -14,11 +14,11 @@ var React = require('react')
   , cx = require('react/lib/cx')
   , Store = require('../model/store')
   , TodoItem = require('./todoitem-jsx')
-  , TodoInput = require('./todoinput-jsx')
   , Actions = require('flux').call
   , extend = require('../misc/extend')
-  , ProgressBar = require('./progress-jsx')
   , moment = require('moment/min/moment.min')
+
+  , dtFormat = 'ddd MMM D'
 ;
 
 function hasClass(node, clsName) {
@@ -75,6 +75,11 @@ var TodoList = React.createClass({
   // called by the new todo input as the "super" function passed along as a prop
 
   _onSave: function(newItem) {
+    
+    this.setState({ adding: false });
+    
+    if(!newItem || typeof newItem !== 'object')  return;
+    
     Actions('create', {
       title:  newItem.title,
       body:   newItem.body || '',
@@ -118,7 +123,10 @@ var TodoList = React.createClass({
     if(page!=='addNew')
       this.setState({ filter: page });
     else
-      this.setState({ adding: true });
+      this.setState({ adding: true }, function() {
+        var title = document.getElementById('addNewTitle');
+        if(title) title.focus();
+      });
   },
 
   render: function() {
@@ -127,12 +135,34 @@ var TodoList = React.createClass({
       , todos = this.state.allTodos
       , todoitems = []
       , timeCut
+      , heading
+      , settingsMsg
       , doneCount = 0;
 
-    if(this.state.filter=='pageWeek')
+    if(this.state.filter=='pageWeek') {
       timeCut = moment().subtract('weeks',1);
-    else if(this.state.filter=='pageToday')
+      contextMsg = "Enjoy the rest of your week!";
+      heading = [<strong key="0">This Week.</strong>, ' '+timeCut.format(dtFormat)+' to '+moment().format(dtFormat)];
+    }
+    else if(this.state.filter=='pageToday') {
       timeCut = moment().subtract('days',1);
+      contextMsg = "Enjoy the rest of your day!";
+      heading = [<strong key="0">Today.</strong>, ' '+moment().format(dtFormat)];
+    }
+    else if(this.state.filter=='pageSettings') {
+      heading = [<strong key="0">Settings.</strong>];
+      settingsMsg = (
+        <div className="settingsBox">
+          <p key="0">Send an SMS to someone when you mark a to-do item as complete!</p>
+          <p key="1">Simply type "notify:+1-111-111-1111" (without the quotes) in the body of the to-do, using the phone number you'd like to notify.</p>
+          <p key="2"><i>(There aren't actually any settings to implement)</i></p>
+        </div>
+      );
+    }
+    else {
+      contextMsg = "Now what?";
+      heading = [<strong key="0">All time.</strong>];
+    }
     
     if (total > 0) {
       for(var i in todos) {
@@ -149,6 +179,10 @@ var TodoList = React.createClass({
         return b.props.todo.time - a.props.todo.time;
       });
     }
+    
+    if(this.state.search) {
+      heading = [<strong key="0">Searching for:</strong>,' '+this.state.sTerm];
+    }
 
     return (
     <section id="main">
@@ -157,14 +191,16 @@ var TodoList = React.createClass({
         <i className="icon-search" />
       </header>
       <section id="body">
-        <ul id="list" className="noteList">
+        <div className="headhint">{ heading }</div>
+        {settingsMsg}
+        <ul id="list" className={cx({'noteList':true, 'hide':this.state.filter=='pageSettings'})}>
           {todoitems}
           <li className="done">
             <div className="doneCheck">
-              <i className="icon-cross"></i>
+              <i className={cx({'icon-cross':!this.state.search, 'icon-search':!!this.state.search})}></i>
             </div>
-            <div className="doneMsg">
-              Woohoo! You are done. Enjoy the rest of your day!
+            <div className={cx({doneMsg:true, hide:!!this.state.search})}>
+              Woohoo! You are done. { contextMsg }
             </div>
           </li>
         </ul>
