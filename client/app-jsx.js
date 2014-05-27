@@ -2,7 +2,7 @@
  * Main entry point for our client
  */
 
-require('./css/newui.styl');
+// for dev: require('./css/newui.styl');
 
 // load fonts via Google Fonts
 
